@@ -13,4 +13,4 @@ This is a **Java GUI** representation of it.
   - type javac Enigma.java  &&  java Enigma in the terminal.
 
 
-![Enigma - Machine](/images/Enigma)
+![Enigma - Machine](/images/Enigma.png)
