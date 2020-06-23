@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Stack;
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -17,14 +16,13 @@ public class Enigma {
     private Stack<Color> s = new Stack<Color>(); // different colors for each pair connections of the plug board
 
     private int pair = 0; // used to keep track of pair wise connections of the plug board
-
     private char[] pairConfig = new char[2]; // store the pair connections of the plug board
 
-    private boolean stopSlider = false;
+    private boolean stopSlider = false; //to stop the the counter getting updated if the slider is moved from required position
 
     private JTextField rotor1Text, rotor2Text, rotor3Text;
     private JSlider rotor1, rotor2, rotor3;
-    JButton reset;
+    private JButton reset;
 
     private List<CodeCircle> codeCircles;
     private HashMap<Character, Integer> codeCircleMap;
@@ -42,7 +40,7 @@ public class Enigma {
      */
     @SuppressWarnings("serial")
     private class CodeCircle extends JButton {
-        private Color color = Color.LIGHT_GRAY;
+        private Color color = new Color(230, 229, 229);
 
         public CodeCircle(String label) {
             super(label);
@@ -68,7 +66,7 @@ public class Enigma {
         }
 
         public void removeYellow() {
-            color = Color.LIGHT_GRAY;
+            color = new Color(230, 229, 229);
         }
     }
 
@@ -86,7 +84,7 @@ public class Enigma {
         }
 
         public void paintComponent(Graphics g) {
-            g.setColor(new Color(154, 155, 230));
+            g.setColor(new Color(180, 177, 177));
             g.fillOval(0, 0, getSize().width - 1, getSize().height - 1);
             super.paintComponent(g);
         }
@@ -103,7 +101,7 @@ public class Enigma {
     @SuppressWarnings("serial")
     private class PlugButton extends JButton {
         private boolean flag = false;
-        private Color color = Color.LIGHT_GRAY;
+        private Color color = new Color(180, 177, 177);
 
         public PlugButton(String label) {
             super(label);
@@ -401,6 +399,33 @@ public class Enigma {
         }
     }
 
+    public void createCodeCircle(List<CodeCircle> codeCircles) {
+        String[] sequence = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "A", "S", "D", "F", "G", "H", "J", "K", "P",
+                "Z", "X", "C", "V", "B", "N", "M", "L" };
+
+        for (String s : sequence) {
+            CodeCircle codeCircle = new CodeCircle(s);
+            codeCircles.add(codeCircle);
+        }
+    }
+
+    public void createRoundButton(List<RoundButton> buttons) {
+        String[] sequence = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "A", "S", "D", "F", "G", "H", "J", "K", "P",
+                "Z", "X", "C", "V", "B", "N", "M", "L" };
+        for (String s : sequence) {
+            RoundButton button = new RoundButton(s);
+            buttons.add(button);
+        }
+    }
+
+    public void createPlugButton(List<PlugButton> plugButtons) {
+        for (char i = 'A'; i <= 'Z'; i++) {
+            PlugButton button = new PlugButton(Character.toString(i));
+            plugButtons.add(button);
+        }
+    }
+
+
     public static void main(String[] args) {
         Enigma enigma = new Enigma();
 
@@ -429,6 +454,7 @@ public class Enigma {
         enigma.addCodeCircles(code1, code2, code3);
         // codeCircles end
 
+
         // container with all the text fields for the rotor positions
         JPanel rotorText = new JPanel();
         rotorText.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -445,7 +471,6 @@ public class Enigma {
         JPanel button = new JPanel();
         button.setLayout(new BoxLayout(button, BoxLayout.Y_AXIS));
         button.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
         JPanel letter1 = new JPanel();
         JPanel letter2 = new JPanel();
         JPanel letter3 = new JPanel();
@@ -458,7 +483,6 @@ public class Enigma {
 
         letter3.setLayout(new BoxLayout(letter3, BoxLayout.X_AXIS));
         letter3.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
         enigma.addRoundButtons(letter1, letter2, letter3);
         // end RoundButtons
 
@@ -491,31 +515,5 @@ public class Enigma {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
 
-    }
-
-    public void createCodeCircle(List<CodeCircle> codeCircles) {
-        String[] sequence = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "A", "S", "D", "F", "G", "H", "J", "K", "P",
-                "Z", "X", "C", "V", "B", "N", "M", "L" };
-
-        for (String s : sequence) {
-            CodeCircle codeCircle = new CodeCircle(s);
-            codeCircles.add(codeCircle);
-        }
-    }
-
-    public void createRoundButton(List<RoundButton> buttons) {
-        String[] sequence = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "A", "S", "D", "F", "G", "H", "J", "K", "P",
-                "Z", "X", "C", "V", "B", "N", "M", "L" };
-        for (String s : sequence) {
-            RoundButton button = new RoundButton(s);
-            buttons.add(button);
-        }
-    }
-
-    public void createPlugButton(List<PlugButton> plugButtons) {
-        for (char i = 'A'; i <= 'Z'; i++) {
-            PlugButton button = new PlugButton(Character.toString(i));
-            plugButtons.add(button);
-        }
     }
 }
