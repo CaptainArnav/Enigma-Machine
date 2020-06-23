@@ -11,14 +11,14 @@ public class Enigma {
 
     private Machine machine;
 
-    private int prev = -1; // keeps track of previous code output which turned yellow
+    private int prev; // keeps track of previous code output which turned yellow
 
-    private Stack<Color> s = new Stack<Color>(); // different colors for each pair connections of the plug board
+    private Stack<Color> s; // different colors for each pair connections of the plug board
 
-    private int pair = 0; // used to keep track of pair wise connections of the plug board
-    private char[] pairConfig = new char[2]; // store the pair connections of the plug board
+    private int pair; // used to keep track of pair wise connections of the plug board
+    private char[] pairConfig; // store the pair connections of the plug board
 
-    private boolean stopSlider = false; //to stop the the counter getting updated if the slider is moved from required position
+    private boolean stopSlider; //to stop the the counter getting updated if the slider is moved from required position
 
     private JTextField rotor1Text, rotor2Text, rotor3Text;
     private JSlider rotor1, rotor2, rotor3;
@@ -33,6 +33,11 @@ public class Enigma {
 
     public Enigma() {
         machine = new Machine();
+        prev = -1;
+        s = new Stack<Color>();
+        pair = 0;
+        pairConfig = new char[2];
+        stopSlider = false;
     }
 
     /**
@@ -71,7 +76,7 @@ public class Enigma {
     }
 
     /**
-     * class representing the input buttons for thr code
+     * class representing the input buttons for the code
      */
     @SuppressWarnings("serial")
     private class RoundButton extends JButton {
