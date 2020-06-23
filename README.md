@@ -10,8 +10,8 @@ This is a **Java GUI** representation of it.
   - [Youtube - Numberphile](https://www.youtube.com/watch?v=mcX7iO_XCFA)
  
 ##### Execution
-  - go to the project directory.
-  - type javac Enigma.java  &&  java Enigma in the terminal.
+  - go to the project directory in the terminal.
+  - type javac Enigma.java  &&  java Enigma.
 
 
 ![Enigma - Machine](/images/Enigma.png)
